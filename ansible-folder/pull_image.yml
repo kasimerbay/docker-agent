@@ -1,0 +1,6 @@
+- hosts: localhost
+  tasks:
+    # tasks file for pull_image
+    - name: Pull an image
+      community.docker.docker_image_pull:
+        name: "{{ image_name }}:{{ image_tag | default('latest') }}"

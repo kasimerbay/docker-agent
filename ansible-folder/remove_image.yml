@@ -1,0 +1,6 @@
+- hosts: localhost
+  roles:
+    # tasks file for remove_image
+    - name: Remove an image
+      community.docker.docker_image_remove:
+        name: "{{ image_name }}:{{ image_tag | default('latest') }}"
