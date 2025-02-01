@@ -1,0 +1,15 @@
+- hosts: localhost
+  gather_facts: no
+  tasks:
+
+  - name: pull images
+    community.docker.docker_image_pull:
+      name: "{{ item }}"
+    loop: "{{ image_names }}"
+
+  - name: gather list of images
+    shell: docker images
+    register: list_of_images
+
+  - name: debug
+    debug: msg="{{ list_of_images.stdout_lines[1:] }}"

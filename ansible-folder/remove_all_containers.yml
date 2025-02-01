@@ -1,0 +1,15 @@
+- hosts: localhost
+  tasks:
+
+  - name: gather list of containers
+    shell: docker ps -a
+    register: list_of_containers
+
+  # - name: debug
+  #   debug: msg="{{ list_of_containers.stdout_lines[1:] }}"
+
+  - name: Remove all containers
+    community.docker.docker_container:
+      name: "{{ item.split()[0] }}"
+      state: absent
+    with_items: "{{ list_of_containers.stdout_lines[1:] }}"

@@ -1,0 +1,6 @@
+- hosts: localhost
+  tasks:
+    - name: Stop a container
+      community.docker.docker_container:
+        name: "{{ image_name + '_container' }}"
+        state: stopped

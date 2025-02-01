@@ -1,5 +1,5 @@
 - hosts: localhost
-  roles:
+  tasks:
     # tasks file for remove_image
     - name: Remove an image
       community.docker.docker_image_remove:

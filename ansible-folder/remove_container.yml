@@ -1,0 +1,7 @@
+- hosts: localhost
+  tasks:
+    # tasks file for remove_container
+    - name: Remove a container
+      community.docker.docker_container:
+        name: "{{ image_name + '_container' }}"
+        state: absent

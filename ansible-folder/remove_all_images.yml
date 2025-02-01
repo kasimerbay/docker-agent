@@ -1,0 +1,21 @@
+- hosts: localhost
+  gather_facts: no
+  tasks:
+
+  - name: gather list of images
+    shell: docker images
+    register: list_of
+
+  - name: Remove all containers
+    community.docker.docker_container:
+      name: "{{ item.split()[0] }}"
+      state: absent
+    with_items: "{{ list_of.stdout_lines[1:] }}"
+
+  - name: debug
+    debug: msg="{{ list_of.stdout_lines[1:] }}"
+
+  - name: Remove all images
+    community.docker.docker_image_remove:
+      name: "{{ item.split()[0] }}"
+    with_items: "{{ list_of.stdout_lines[1:] }}"
